@@ -2,7 +2,6 @@ import feedparser
 import re
 import requests
 import os
-from datetime import datetime
 
 FEED_URL = "https://politepol.com/fd/QMwGP4F4EnYO.xml"
 
@@ -22,10 +21,14 @@ def main():
             save_page(url)
 
 def save_page(url):
-    html = requests.get(url, timeout=10).text
-
-    slug = url.rstrip("/").split("/")[-1]      # example: sarbojonkotha-12-1
+    slug = url.rstrip("/").split("/")[-1]    # sarbojonkotha-12-1
     filename = f"pages/{slug}.html"
+
+    if os.path.exists(filename):
+        print("Already exists, skipped:", filename)
+        return
+
+    html = requests.get(url, timeout=10).text
 
     with open(filename, "w", encoding="utf-8") as f:
         f.write(html)
