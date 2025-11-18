@@ -2,7 +2,7 @@ name: Daily Monitor
 
 on:
   schedule:
-    - cron: "0 18 * * *"
+    - cron: "0 18 * * *"   # 12 AM Bangladesh time (UTC+6)
   workflow_dispatch:
 
 permissions:
@@ -11,6 +11,7 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -29,6 +30,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add pages/
-          git commit -m "Update pages" || exit 0
+          git add *.html
+          git commit -m "Update page" || exit 0
           git push
