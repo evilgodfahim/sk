@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install deps
+      - name: Install dependencies
         run: pip install feedparser requests
 
       - name: Run script
@@ -30,6 +30,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add *.html
-          git commit -m "Update page" || exit 0
+          git add sarbojonkotha.html
+          git commit -m "Update sarbojonkotha page" || exit 0
           git push
