@@ -9,6 +9,8 @@ PATTERN = re.compile(
     r"^https://sarbojonkotha\.info/sarbojonkotha-([0-9]+)-([0-9]+)/$"
 )
 
+OUTPUT_FILE = "sarbojonkotha.html"   # always this name
+
 def main():
     feed = feedparser.parse(FEED_URL)
 
@@ -23,27 +25,25 @@ def main():
             candidates.append((x, y, url))
 
     if not candidates:
+        print("No matching URLs found.")
         return
 
-    # Sort by: highest X first, and for same X, highest Y first
+    # Sort by highest X, then highest Y
     candidates.sort(key=lambda t: (t[0], t[1]), reverse=True)
 
-    # Pick only the best (highest X, and for it highest Y)
+    # Pick the single best URL
     _, _, selected_url = candidates[0]
 
     save_page(selected_url)
 
 
 def save_page(url):
-    slug = url.rstrip("/").split("/")[-1]       # sarbojonkotha-12-1
-    filename = f"{slug}.html"                   # saved in root
-
     html = requests.get(url, timeout=10).text
 
-    with open(filename, "w", encoding="utf-8") as f:
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print("Saved:", filename)
+    print("Saved as:", OUTPUT_FILE)
 
 
 if __name__ == "__main__":
