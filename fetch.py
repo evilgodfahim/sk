@@ -4,7 +4,7 @@ import requests
 import os
 import json
 
-FEED_URL = "https://politepol.com/fd/QMwGP4F4EnYO.xml"
+FEED_URL = "https://politepaul.com/fd/QMwGP4F4EnYO.xml"
 PATTERN = re.compile(
     r"^https://sarbojonkotha\.info/sarbojonkotha-([0-9]+)-([0-9]+)/$"
 )
